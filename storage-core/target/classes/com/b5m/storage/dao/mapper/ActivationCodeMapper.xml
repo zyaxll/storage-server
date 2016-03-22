@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.b5m.storage.dao.ActivationCodeMapper">
+    <resultMap id="BaseResultMap" type="com.b5m.storage.model.entity.ActivationCode">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="gift_id" property="giftId" jdbcType="VARCHAR"/>
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        <result column="group_code" property="groupCode" jdbcType="VARCHAR"/>
+        <result column="dead_line" property="deadLine" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="available_status" property="availableStatus" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, code, available_status, status, create_time, update_time, dead_line,
+        group_name, group_code, create_user, update_user, gift_id
+    </sql>
+
+    <sql id="Where_Clause">
+        <where>
+            <trim prefixOverrides="and">
+                <if test="code != null">
+                    and code = #{code}
+                </if>
+                <if test="availableStatus != null">
+                    and available_status = #{availableStatus}
+                </if>
+                <if test="status != null">
+                    and status = #{status}
+                </if>
+                <if test="createTime != null">
+                    and create_time = #{createTime}
+                </if>
+                <if test="updateTime != null">
+                    and update_time = #{updateTime}
+                </if>
+                <if test="deadLine != null">
+                    and dead_line = #{deadLine}
+                </if>
+                <if test="groupName != null">
+                    and group_name = #{groupName}
+                </if>
+                <if test="groupCode != null">
+                    and group_code = #{groupCode}
+                </if>
+                <if test="createUser != null">
+                    and create_user = #{createUser}
+                </if>
+                <if test="updateUser != null">
+                    and update_user = #{updateUser}
+                </if>
+                <if test="giftId != null">
+                    and gift_id = #{giftId}
+                </if>
+            </trim>
+        </where>
+    </sql>
+
+    <select id="selectByCode" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_core_activation_code WHERE code = #{code,jdbcType=VARCHAR}
+    </select>
+    <select id="listDistinctGroupName" resultType="java.lang.String">
+        SELECT DISTINCT group_name FROM t_core_activation_code
+    </select>
+
+    <select id="listDistinctGroupCode" resultType="java.lang.String">
+        SELECT DISTINCT group_code FROM t_core_activation_code
+        WHERE group_name = #{groupName}
+    </select>
+
+</mapper>
