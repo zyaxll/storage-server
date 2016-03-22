@@ -3,7 +3,6 @@ package com.b5m.storage.service.impl;
 import com.b5m.storage.dao.ActivationCodeMapper;
 import com.b5m.storage.model.entity.ActivationCode;
 import com.b5m.storage.service.IActivationCodeService;
-import com.b5m.storage.service.core.impl.AbstractCommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ import org.springframework.stereotype.Service;
  * 16-3-22       Leo.li          1.0             TODO
  */
 @Service
-public class ActivationCodeService extends AbstractCommonService<ActivationCode> implements IActivationCodeService {
+public class ActivationCodeService implements IActivationCodeService {
 
     @Autowired
     private ActivationCodeMapper activationCodeMapper;
@@ -39,5 +38,4 @@ public class ActivationCodeService extends AbstractCommonService<ActivationCode>
     public void save(ActivationCode activationCode) {
 
     }
-
 }

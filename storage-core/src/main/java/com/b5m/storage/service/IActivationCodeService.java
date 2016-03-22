@@ -1,8 +1,6 @@
 package com.b5m.storage.service;
 
 import com.b5m.storage.model.entity.ActivationCode;
-import com.b5m.storage.service.IActivationCodeRpcService;
-import com.b5m.storage.service.core.ICommonService;
 
 /**
  * @description: TODO
@@ -16,7 +14,7 @@ import com.b5m.storage.service.core.ICommonService;
  * -----------------------------------------------------------------------------------
  * 16-3-22       Leo.li          1.0             TODO
  */
-public interface IActivationCodeService extends IActivationCodeRpcService, ICommonService<ActivationCode> {
+public interface IActivationCodeService extends IActivationCodeRpcService {
 
     ActivationCode selectByCode(String code);
 
