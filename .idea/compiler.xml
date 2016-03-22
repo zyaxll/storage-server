@@ -22,18 +22,36 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="storage-api" />
-        <module name="storage-core" />
-        <module name="storage-webapp" />
         <module name="storage-ws" />
         <module name="storeage-webapp" />
       </profile>
+      <profile default="false" name="Annotation profile for storage-core" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="storage-core" />
+      </profile>
+      <profile default="false" name="Annotation profile for storage-webapp" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="storage-webapp" />
+      </profile>
+      <profile default="false" name="Annotation profile for storage-api" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="storage-api" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="storage-api" target="1.6" />
-      <module name="storage-core" target="1.6" />
-      <module name="storage-server" target="1.6" />
-      <module name="storage-webapp" target="1.6" />
+      <module name="storage-api" target="1.7" />
+      <module name="storage-core" target="1.7" />
+      <module name="storage-server" target="1.7" />
+      <module name="storage-webapp" target="1.7" />
       <module name="storage-ws" target="1.6" />
       <module name="storeage-webapp" target="1.6" />
     </bytecodeTargetLevel>
