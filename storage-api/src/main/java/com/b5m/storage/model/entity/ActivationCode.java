@@ -1,8 +1,11 @@
 package com.b5m.storage.model.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,6 +29,9 @@ public class ActivationCode implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull(message = "{ActivationCode.code.null}")
+    @Length(min = 5, max = 20, message = "{ActivationCode.code.length.illegal}")
+    @Pattern(regexp = "[a-zA-Z0-9]{5,20}", message = "{ActivationCode.code.illegal}")
     //激活码
     @Column(name = "code")
     private String code;

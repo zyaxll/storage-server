@@ -4,9 +4,13 @@ import com.b5m.storage.model.entity.ActivationCode;
 import com.b5m.storage.service.IActivationCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @description: TODO
@@ -27,10 +31,18 @@ public class ActivationCodeController {
     @Autowired
     private IActivationCodeService activationCodeService;
 
-    @RequestMapping("/{code}")
+    @RequestMapping("/get")
     @ResponseBody
-    public ActivationCode getCode(@PathVariable String code) {
-        return activationCodeService.selectByCode(code);
+    public ActivationCode getCode(@Valid ActivationCode code, BindingResult result) {
+        if (result.hasErrors()) {
+            List<FieldError> lstError = result.getFieldErrors();
+            for (FieldError error : lstError) {
+                String e = error.getField() + error.getDefaultMessage();
+                System.out.println(e);
+            }
+            return null;
+        }
+        return activationCodeService.selectByCode(code.getCode());
     }
 
 }
