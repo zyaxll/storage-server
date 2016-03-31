@@ -141,6 +141,13 @@ public interface ICommonService<T, ID extends Serializable> {
     T findOneByCondition(Iterable<Condition> iterable);
 
     /**
+     * 通过属性获取单个实体
+     * @param conditions 属性
+     * @return 实体
+     */
+    T findOneByCondition(Condition... conditions);
+
+    /**
      * 获取实体数量
      * @return 实体数量
      */

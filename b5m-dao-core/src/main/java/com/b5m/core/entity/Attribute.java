@@ -1,5 +1,6 @@
 package com.b5m.core.entity;
 
+import com.b5m.utils.Assert;
 import com.b5m.utils.StringUtils;
 
 import java.io.Serializable;
@@ -20,41 +21,64 @@ import java.util.List;
  * -----------------------------------------------------------------------------------
  * 16-3-30       Leo.li          1.0             TODO
  */
-public class Attribute implements Iterable<Attribute.Property>, Serializable {
+public class Attribute implements Serializable {
 
-    private List<Property> properties = new ArrayList<>();
+    private String name;
+    private Object value;
 
-    public Attribute(Property... properties) {
-        this(properties == null ? new ArrayList<Property>() : Arrays.asList(properties));
-    }
+    private List<Attribute> attrs;
 
-    public Attribute(List<Property> properties) {
-        if (null != properties) {
-            this.properties.addAll(properties);
+    public Attribute(String name, Object value) {
+        if (StringUtils.isBlank(name)) {
+            throw new IllegalArgumentException("Attribute's name is null");
         }
+
+        this.name = name;
+        this.value = value;
+
+        add(this);
     }
 
-    public Attribute add(Property property) {
-        if (null == property) {
+    public Attribute add(Attribute attribute) {
+        if (this.attrs == null) {
+            this.attrs = new ArrayList<>();
+        }
+
+        if (null == attribute) {
             return this;
         }
 
-        this.properties.add(property);
+        this.attrs.add(attribute);
 
         return this;
     }
 
-    public List<Property> getProperties() {
-        return properties;
+    public static Attribute NEW(String name, Object value) {
+        return new Attribute(name, value);
     }
 
-    public void setProperties(List<Property> properties) {
-        this.properties = properties;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public Iterator<Property> iterator() {
-        return this.properties.iterator();
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    public List<Attribute> getAttrs() {
+        return attrs;
+    }
+
+    public void setAttrs(List<Attribute> attrs) {
+        this.attrs = attrs;
     }
 
     @Override
@@ -62,70 +86,25 @@ public class Attribute implements Iterable<Attribute.Property>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Attribute that = (Attribute) o;
+        Attribute attribute = (Attribute) o;
 
-        return properties != null ? properties.equals(that.properties) : that.properties == null;
+        if (name != null ? !name.equals(attribute.name) : attribute.name != null) return false;
+        return value != null ? value.equals(attribute.value) : attribute.value == null;
 
     }
 
     @Override
     public int hashCode() {
-        return properties != null ? properties.hashCode() : 0;
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return StringUtils.collectionToCommaDelimitedString(properties);
+        return "Attribute{" +
+                "name='" + name + '\'' +
+                ", value=" + value +
+                '}';
     }
-
-    public static class Property implements Serializable {
-
-        private String name;
-        private Object value;
-
-        public Property(String name, Object value) {
-            this.name = name;
-            this.value = value;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Property property = (Property) o;
-
-            return name != null ? name.equals(property.name) : property.name == null && (value != null ? value.equals(property.value) : property.value == null);
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = name != null ? name.hashCode() : 0;
-            result = 31 * result + (value != null ? value.hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s = %s", name, value);
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public void setValue(Object value) {
-            this.value = value;
-        }
-    }
-
 }

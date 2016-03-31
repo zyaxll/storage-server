@@ -4,6 +4,7 @@ import com.b5m.utils.DateUtils;
 import com.b5m.utils.ObjectUtils;
 import com.b5m.utils.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -22,7 +23,7 @@ import java.util.List;
  * 16-3-28       Leo.li          1.0             TODO
  */
 
-public class Condition {
+public class Condition implements Serializable {
 
     /**
      * 列名
