@@ -38,6 +38,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- hibernate validator -->
         <dependency>
             <groupId>org.hibernate</groupId>

@@ -33,14 +33,9 @@ public class ActivationCodeController {
 
     @RequestMapping("/get")
     @ResponseBody
-    public ActivationCode getCode(@Valid ActivationCode code, BindingResult result) {
-        if (result.hasErrors()) {
-            List<FieldError> lstError = result.getFieldErrors();
-            for (FieldError error : lstError) {
-                String e = error.getField() + error.getDefaultMessage();
-                System.out.println(e);
-            }
-            return null;
+    public ActivationCode getCode(@Valid ActivationCode code) {
+        if (code.getId() == null) {
+            throw new RuntimeException("123");
         }
         return activationCodeService.selectByCode(code.getCode());
     }
