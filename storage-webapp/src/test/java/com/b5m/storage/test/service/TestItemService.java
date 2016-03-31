@@ -185,15 +185,13 @@ public class TestItemService {
 
         Long id = item.getId();
 
-        Attribute attribute = new Attribute();
-        attribute.add(new Attribute.Property(Item.STATUS_COLUMN, "0"));
-        attribute.add(new Attribute.Property(Item.PIID_COLUMN, "2222"));
+        Attribute attribute = Attribute.NEW(Item.STATUS_COLUMN, "1").add(Attribute.NEW(Item.PIID_COLUMN, "3333"));
 
         itemService.updateByAttribute(item.getId(), attribute);
 
         item = itemService.findOne(id);
-        Assert.assertEquals(item.getStatus(), "0");
-        Assert.assertEquals(item.getPiid().longValue(), 2222L);
+        Assert.assertEquals(item.getStatus(), "1");
+        Assert.assertEquals(item.getPiid().longValue(), 3333L);
 
     }
 

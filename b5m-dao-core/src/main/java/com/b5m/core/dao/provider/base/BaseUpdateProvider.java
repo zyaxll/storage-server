@@ -53,7 +53,7 @@ public class BaseUpdateProvider extends BaseProvider {
         sql.append(SqlUtils.updateTable(entityClass));
 
         sql.append("<set>");
-        sql.append("<foreach collection=\"entity.properties\" item=\"p\" index =\"index\" separator=\",\">");
+        sql.append("<foreach collection=\"entity.attrs\" item=\"p\" index =\"index\" separator=\",\">");
         sql.append("${p.name} = #{p.value}");
         sql.append("</foreach>");
         sql.append("</set>");

@@ -254,9 +254,17 @@ public abstract class CommonService<T, ID extends Serializable> implements IComm
      */
     @Override
     public T findOneByCondition(Iterable<Condition> iterable) {
+        if (null == iterable || !iterable.iterator().hasNext()) {
+            return null;
+        }
+
         return mapper.findOneByCondition(iterable);
     }
 
+    @Override
+    public T findOneByCondition(Condition... conditions) {
+        return findOneByCondition(Arrays.asList(conditions));
+    }
 
     /**
      * 获取实体数量
