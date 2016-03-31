@@ -26,6 +26,13 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.b5m</groupId>
+            <artifactId>b5m-exception</artifactId>
+            <version>0.1.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

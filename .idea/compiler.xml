@@ -22,6 +22,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="b5m-dao-core" />
+        <module name="b5m-service-core" />
         <module name="storage-api" />
         <module name="storage-core" />
         <module name="storage-webapp" />
@@ -30,10 +32,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="storage-api" target="1.6" />
-      <module name="storage-core" target="1.6" />
-      <module name="storage-server" target="1.6" />
-      <module name="storage-webapp" target="1.6" />
+      <module name="b5m-dao-core" target="1.7" />
+      <module name="b5m-service-core" target="1.7" />
+      <module name="storage-api" target="1.7" />
+      <module name="storage-core" target="1.7" />
+      <module name="storage-server" target="1.7" />
+      <module name="storage-webapp" target="1.7" />
       <module name="storage-ws" target="1.6" />
       <module name="storeage-webapp" target="1.6" />
     </bytecodeTargetLevel>
