@@ -10,7 +10,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 import java.util.Set;
 
 /**
- * @description: TODO
+ * @description: 公用插入SQL生成类
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0

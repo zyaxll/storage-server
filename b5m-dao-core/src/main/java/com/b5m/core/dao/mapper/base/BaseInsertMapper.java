@@ -8,6 +8,9 @@ import java.io.Serializable;
 
 /**
  * @description: 公用插入Mapper, 通过{@link BaseInsertProvider}提供具体SQL生成
+ *
+ * <p>当Provider中的method与Mapper中的方法相同时, 可以使用dynamicSQL替代</p>
+ *
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0
@@ -26,7 +29,7 @@ public interface BaseInsertMapper<T, ID extends Serializable> {
      * @return 插入条数
      */
     @Options(useGeneratedKeys = true)
-    @InsertProvider(type = BaseInsertProvider.class, method = "save")
+    @InsertProvider(type = BaseInsertProvider.class, method = "dynamicSQL")
     int save(T entity);
 
     /**
@@ -34,7 +37,7 @@ public interface BaseInsertMapper<T, ID extends Serializable> {
      * @param iterable    实体列表
      * @return 插入条数
      */
-    @InsertProvider(type = BaseInsertProvider.class, method = "saveInBatch")
+    @InsertProvider(type = BaseInsertProvider.class, method = "dynamicSQL")
     int saveInBatch(Iterable<T> iterable);
 
 }

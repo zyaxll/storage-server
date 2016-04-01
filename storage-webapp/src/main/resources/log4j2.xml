@@ -13,10 +13,10 @@
         <!-- 系统全日志 -->
         <RollingRandomAccessFile name="Stdout"
                                  fileName="${LOG_HOME}/stdout.file_json"
-                                 filePattern="${LOG_HOME}/stdout.file_json.%d{yyyy-MM-dd-HH}.log">
+                                 filePattern="${LOG_HOME}/stdout.file_json.%d{yyyy-MM-dd-HH}">
 
             <PatternLayout
-                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread][%file:%line] - %msg%n" />
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} [rip=%X{rip}] %-5p [%thread] [%file:%line] - %msg%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>
@@ -24,9 +24,9 @@
         <!-- 系统错误日志 -->
         <RollingRandomAccessFile name="Warn"
                                  fileName="${LOG_HOME}/warn.file_json"
-                                 filePattern="${LOG_HOME}/warn.file_json.%d{yyyy-MM-dd-HH}.log">
+                                 filePattern="${LOG_HOME}/warn.file_json.%d{yyyy-MM-dd-HH}">
             <PatternLayout
-                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread][%file:%line] - %msg%n" />
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%file:%line] - %msg%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>
@@ -35,6 +35,18 @@
             </Filters>
         </RollingRandomAccessFile>
         <!-- 系统性能日志 -->
+        <!--
+        <RollingRandomAccessFile name="Profile"
+                                 fileName="${LOG_HOME}/profilelog.file_json"
+                                 filePattern="${LOG_HOME}/profilelog.file_json.%d{yyyy-MM-dd-HH}">
+            &lt;!&ndash;<JSONLayout/>&ndash;&gt;
+            <PatternLayout
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%file:%line] - %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingRandomAccessFile>
+        -->
     </appenders>
     <loggers>
         <!-- 3rdparty Loggers -->
@@ -42,9 +54,7 @@
         <logger name="com.ibatis" level="DEBUG"/>
         <logger name="java.sql" level="DEBUG"/>
 
-        <logger name="org.jboss.netty" level="WARN"/>
-        <logger name="org.apache.http" level="WARN"/>
-        <logger name="com.mchange.v2" level="WARN"/>
+        <!--<logger name="ProfileCollector" level="INFO" appender-ref="Profile"/>-->
 
         <!-- Root Logger -->
         <root level="DEBUG">

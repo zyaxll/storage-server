@@ -6,7 +6,10 @@ import org.apache.ibatis.annotations.DeleteProvider;
 import java.io.Serializable;
 
 /**
- * @description: TODO
+ * @description: 公用删除Mapper, 通过{@link BaseDeleteProvider}提供具体SQL生成
+ *
+ * <p>当Provider中的method与Mapper中的方法相同时, 可以使用dynamicSQL替代</p>
+ *
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0
@@ -19,13 +22,13 @@ import java.io.Serializable;
  */
 public interface BaseDeleteMapper<T, ID extends Serializable> {
 
-    @DeleteProvider(type= BaseDeleteProvider.class, method= "deleteByPrimaryKey")
+    @DeleteProvider(type= BaseDeleteProvider.class, method= "dynamicSQL")
     void deleteByPrimaryKey(ID id);
 
-    @DeleteProvider(type= BaseDeleteProvider.class, method= "deleteByPrimaryKeys")
+    @DeleteProvider(type= BaseDeleteProvider.class, method= "dynamicSQL")
     void deleteByPrimaryKeys(Iterable<ID> ids);
 
-    @DeleteProvider(type= BaseDeleteProvider.class, method= "deleteByEntity")
+    @DeleteProvider(type= BaseDeleteProvider.class, method= "dynamicSQL")
     void deleteByEntity(T entity);
 
 //    @DeleteProvider(type= BaseDeleteProvider.class, method= "deleteAll")

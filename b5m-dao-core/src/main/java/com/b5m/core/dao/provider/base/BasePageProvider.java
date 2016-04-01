@@ -6,7 +6,7 @@ import com.b5m.core.dao.util.SqlUtils;
 import org.apache.ibatis.mapping.MappedStatement;
 
 /**
- * @description: TODO
+ * @description: 公用分页SQL生成类
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0

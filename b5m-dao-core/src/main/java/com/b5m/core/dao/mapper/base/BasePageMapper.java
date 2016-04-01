@@ -10,7 +10,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @description: TODO
+ * @description: 公用分页Mapper, 通过{@link BasePageProvider}提供具体SQL生成
+ *
+ * <p>当Provider中的method与Mapper中的方法相同时, 可以使用dynamicSQL替代</p>
+ *
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0
@@ -23,16 +26,16 @@ import java.util.List;
  */
 public interface BasePageMapper<T, ID extends Serializable> {
 
-    @SelectProvider(type= BasePageProvider.class, method= "findPageByEntity")
+    @SelectProvider(type= BasePageProvider.class, method= "dynamicSQL")
     List<T> findPageByEntity(@Param("entity") T entity, @Param("from") long from, @Param("size") long size);
 
-    @SelectProvider(type= BasePageProvider.class, method= "findPageByEntityAndSort")
+    @SelectProvider(type= BasePageProvider.class, method= "dynamicSQL")
     List<T> findPageByEntityAndSort(@Param("entity") T entity, @Param("sort") Sort sort, @Param("from") long from, @Param("size") long size);
 
-    @SelectProvider(type= BasePageProvider.class, method= "findPageByCondition")
+    @SelectProvider(type= BasePageProvider.class, method= "dynamicSQL")
     List<T> findPageByCondition(@Param("list") Iterable<Condition> iterator, @Param("from") long from, @Param("size") long size);
 
-    @SelectProvider(type= BasePageProvider.class, method= "findPageByConditionAndSort")
+    @SelectProvider(type= BasePageProvider.class, method= "dynamicSQL")
     List<T> findPageByConditionAndSort(@Param("list") Iterable<Condition> iterator, @Param("sort") Sort sort, @Param("from") long from, @Param("size") long size);
 
 }

@@ -11,7 +11,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @description: TODO
+ * @description: 公用特殊Mapper, 通过{@link BaseConditionProvider}提供具体SQL生成
+ *
+ * <p>当Provider中的method与Mapper中的方法相同时, 可以使用dynamicSQL替代</p>
+ *
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0
@@ -24,22 +27,22 @@ import java.util.List;
  */
 public interface BaseConditionMapper<T, ID extends Serializable> {
 
-    @DeleteProvider(type= BaseConditionProvider.class, method= "deleteByCondition")
+    @DeleteProvider(type= BaseConditionProvider.class, method= "dynamicSQL")
     void deleteByCondition(Iterable<Condition> iterator);
 
 //    @DeleteProvider(type= BaseConditionProvider.class, method= "updateByCondition")
 //    void updateByCondition(Iterable<Condition> iterator);
 
-    @SelectProvider(type= BaseConditionProvider.class, method= "findOneByCondition")
+    @SelectProvider(type= BaseConditionProvider.class, method= "dynamicSQL")
     T findOneByCondition(Iterable<Condition> iterator);
 
-    @SelectProvider(type= BaseConditionProvider.class, method= "countByCondition")
+    @SelectProvider(type= BaseConditionProvider.class, method= "dynamicSQL")
     long countByCondition(Iterable<Condition> iterator);
 
-    @SelectProvider(type= BaseConditionProvider.class, method= "findAllByCondition")
+    @SelectProvider(type= BaseConditionProvider.class, method= "dynamicSQL")
     List<T> findAllByCondition(Iterable<Condition> iterator);
 
-    @SelectProvider(type= BaseConditionProvider.class, method= "findAllByConditionAndSort")
+    @SelectProvider(type= BaseConditionProvider.class, method= "dynamicSQL")
     List<T> findAllByConditionAndSort(@Param("list") Iterable<Condition> iterator, @Param("sort") Sort sort);
 
 }

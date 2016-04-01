@@ -19,7 +19,7 @@
 
         <property name="initialSize" value="1"/>
         <property name="maxActive" value="${jdbc.maxActive}"/>
-        <property name="minIdle" value="1"/>
+        <property name="minIdle" value="10"/>
 
         <!-- 配置获取连接等待超时的时间 -->
         <property name="maxWait" value="120000"/>
@@ -67,17 +67,10 @@
                 <value>classpath:com/b5m/storage/dao/mapper/*.xml</value>
             </list>
         </property>
-        <property name="plugins">
-            <array>
-                <bean class="com.b5m.core.dao.interceptor.MapperInterceptor">
-                    <property name="properties">
-                        <value>
-                            mappers=com.b5m.core.dao.mapper.CommonMapper
-                        </value>
-                    </property>
-                </bean>
-            </array>
-        </property>
+    </bean>
+
+    <bean class="com.b5m.core.dao.factory.MapperScannerConfigurer">
+        <property name="basePackage" value="com.b5m.storage.dao"/>
     </bean>
 
     <aop:config>
@@ -114,8 +107,6 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.b5m.storage.dao"/>
-    </bean>
+
 
 </beans>

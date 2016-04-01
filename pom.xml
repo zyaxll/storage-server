@@ -13,6 +13,11 @@
     <properties>
         <storage.version>0.0.1-SNAPSHOT</storage.version>
 
+        <b5m-utils.version>0.2.1</b5m-utils.version>
+        <b5m-log.version>0.3.5</b5m-log.version>
+        <b5m-http.version>0.0.4</b5m-http.version>
+        <b5m-exception.version>0.1.1</b5m-exception.version>
+
         <hibernate.version>5.0.2.Final</hibernate.version>
         <el.version>2.2.4</el.version>
 
@@ -81,6 +86,29 @@
                 <version>${storage.version}</version>
             </dependency>
 
+            <!-- 公用组件 -->
+            <dependency>
+                <groupId>com.b5m</groupId>
+                <artifactId>b5m-utils</artifactId>
+                <version>${b5m-utils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.b5m</groupId>
+                <artifactId>b5m-log</artifactId>
+                <version>${b5m-log.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.b5m</groupId>
+                <artifactId>b5m-http</artifactId>
+                <version>${b5m-http.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.b5m</groupId>
+                <artifactId>b5m-exception</artifactId>
+                <version>${b5m-exception.version}</version>
+            </dependency>
+
+            <!-- hibernate validator -->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
@@ -120,6 +148,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
@@ -180,6 +213,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -217,12 +256,40 @@
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${zkclient.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
                 <version>${zookeeper.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>log4j</artifactId>
+                        <groupId>log4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jline</artifactId>
+                        <groupId>jline</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>org.jboss.netty</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>slf4j-log4j12</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
         </dependencies>

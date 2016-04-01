@@ -23,7 +23,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @description: TODO
+ * @description: 基础SQL生成类
+ *
+ * <p>
+ *     1. 用于保存基础信息
+ *     2. 用户公用方法封装
+ *     3. 所有Provider需继承该类
+ * </p>
+ *
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0
@@ -36,6 +43,9 @@ import java.util.Map;
  */
 public abstract class BaseProvider {
 
+    /**
+     * SQL生成方式默认采用XML格式风格
+     */
     private static final XMLLanguageDriver languageDriver = new XMLLanguageDriver();
 
     /**

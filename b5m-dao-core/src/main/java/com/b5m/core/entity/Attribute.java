@@ -1,16 +1,13 @@
 package com.b5m.core.entity;
 
-import com.b5m.utils.Assert;
 import com.b5m.utils.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 /**
- * @description: TODO
+ * @description: 属性, 用于更新时的属性设置
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0

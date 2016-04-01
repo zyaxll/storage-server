@@ -8,7 +8,7 @@ import com.b5m.utils.StringUtils;
 import java.util.Set;
 
 /**
- * @description: TODO
+ * @description: 用于动态生成SQL
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0

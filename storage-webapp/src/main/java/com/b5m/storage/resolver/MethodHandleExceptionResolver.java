@@ -61,7 +61,6 @@ public class MethodHandleExceptionResolver extends ExceptionHandlerExceptionReso
         } else if (exception instanceof StorageException) { //TODO 自定义异常
             logger.error("project error", exception);
         } else { //TODO 其他异常
-
             logger.error("project other error", exception);
         }
 

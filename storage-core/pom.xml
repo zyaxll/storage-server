@@ -16,25 +16,10 @@
             <groupId>com.b5m.storage</groupId>
             <artifactId>storage-api</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.b5m.storage</groupId>
             <artifactId>b5m-service-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-
-        <!-- Mybatis 和Spring的 整合包，是mybatis出的 -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
         </dependency>
 
     </dependencies>

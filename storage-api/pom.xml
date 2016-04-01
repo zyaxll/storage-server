@@ -30,7 +30,6 @@
         <dependency>
             <groupId>com.b5m</groupId>
             <artifactId>b5m-exception</artifactId>
-            <version>0.1.1</version>
         </dependency>
 
     </dependencies>

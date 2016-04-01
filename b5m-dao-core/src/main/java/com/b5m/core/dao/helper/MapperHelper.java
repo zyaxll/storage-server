@@ -2,20 +2,17 @@ package com.b5m.core.dao.helper;
 
 import com.b5m.core.dao.provider.core.BaseProvider;
 import com.b5m.utils.Assert;
+import com.b5m.utils.StringUtils;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.session.Configuration;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @description: TODO
@@ -36,6 +33,8 @@ public class MapperHelper {
      */
     private Map<Class<?>, BaseProvider> registerMapper = new HashMap<>();
 
+    private List<Class<?>> registerClass = new ArrayList<>();
+
     /**
      * 缓存msid和Provider
      */
@@ -45,6 +44,20 @@ public class MapperHelper {
      * 缓存skip结果
      */
     private final Map<String, Boolean> msIdSkip = new HashMap<>();
+
+    /**
+     * 通用Mapper配置
+     */
+//    private Config config = new Config();
+
+
+    public MapperHelper() {
+    }
+
+    public MapperHelper(Properties properties) {
+        this();
+
+    }
 
     /**
      * 通过通用Mapper接口获取对应的BaseProvider
@@ -143,17 +156,17 @@ public class MapperHelper {
      * @throws RuntimeException
      */
     public void registerMapper(Class<?> mapperClass) {
-        if (registerMapper.get(mapperClass) == null) {
-
+        if (!registerMapper.containsKey(mapperClass)) {
+            registerClass.add(mapperClass);
             registerMapper.put(mapperClass, fromMapperClass(mapperClass));
+        }
 
-            Class<?>[] parentClasses = mapperClass.getInterfaces();
-            for (Class<?> parentClass : parentClasses) {
-                registerMapper.put(parentClass, fromMapperClass(parentClass));
+        //自动注册继承的接口
+        Class<?>[] interfaces = mapperClass.getInterfaces();
+        if (interfaces != null && interfaces.length > 0) {
+            for (Class<?> anInterface : interfaces) {
+                registerMapper(anInterface);
             }
-//            EntityHelper.initEntityNameMap(mapperClass);
-        } else {
-            throw new RuntimeException("已经注册过的通用Mapper[" + mapperClass.getCanonicalName() + "]不能多次注册!");
         }
     }
 
@@ -196,6 +209,21 @@ public class MapperHelper {
     }
 
     /**
+     * 判断接口是否包含通用接口
+     *
+     * @param mapperInterface
+     * @return
+     */
+    public boolean isExtendCommonMapper(Class<?> mapperInterface) {
+        for (Class<?> mapperClass : registerClass) {
+            if (mapperClass.isAssignableFrom(mapperInterface)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 获取MapperTemplate
      *
      * @param msId
@@ -229,6 +257,73 @@ public class MapperHelper {
             provider.setSqlSource(ms);
         } catch (Exception e) {
             throw new RuntimeException("调用方法异常:" + e.getMessage());
+        }
+    }
+
+    /**
+     * 如果当前注册的接口为空，自动注册默认接口
+     */
+    public void ifEmptyRegisterDefaultInterface() {
+        if (registerClass.size() == 0) {
+            registerMapper("com.b5m.core.dao.mapper.CommonMapper");
+        }
+    }
+
+    /**
+     * 配置完成后，执行下面的操作
+     * <br>处理configuration中全部的MappedStatement
+     *
+     * @param configuration
+     */
+    public void processConfiguration(Configuration configuration) {
+        processConfiguration(configuration, null);
+    }
+
+    /**
+     * 配置指定的接口
+     *
+     * @param configuration
+     * @param mapperInterface
+     */
+    public void processConfiguration(Configuration configuration, Class<?> mapperInterface) {
+        String prefix;
+        if (mapperInterface != null) {
+            prefix = mapperInterface.getCanonicalName();
+        } else {
+            prefix = "";
+        }
+        for (Object object : new ArrayList<Object>(configuration.getMappedStatements())) {
+            if (object instanceof MappedStatement) {
+                MappedStatement ms = (MappedStatement) object;
+                if (ms.getId().startsWith(prefix) && isMapperMethod(ms.getId())) {
+                    if (ms.getSqlSource() instanceof ProviderSqlSource) {
+                        setSqlSource(ms);
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 配置属性
+     *
+     * @param properties
+     */
+    public void setProperties(Properties properties) {
+//        config.setProperties(properties);
+        //注册通用接口
+        String mapper = null;
+        if (properties != null) {
+            mapper = properties.getProperty("mappers");
+        }
+        if (StringUtils.isNotEmpty(mapper)) {
+            String[] mappers = mapper.split(",");
+            for (String mapperClass : mappers) {
+                if (mapperClass.length() > 0) {
+                    registerMapper(mapperClass);
+                }
+            }
         }
     }
 

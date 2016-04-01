@@ -10,7 +10,7 @@ import com.b5m.core.dao.mapper.base.BaseUpdateMapper;
 import java.io.Serializable;
 
 /**
- * @description: TODO
+ * @description: 公用Mapper, 所有Mapper需继承该Mapper
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0
@@ -27,6 +27,7 @@ public interface CommonMapper<T, ID extends Serializable>
         BaseDeleteMapper<T, ID>,
         BaseSelectMapper<T, ID>,
         BaseConditionMapper<T, ID>,
-        BasePageMapper<T, ID> {
+        BasePageMapper<T, ID>,
+        Marker {
 
 }

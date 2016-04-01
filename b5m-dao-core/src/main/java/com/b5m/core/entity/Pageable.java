@@ -12,35 +12,36 @@ import java.io.Serializable;
  */
 public interface Pageable extends Serializable {
     
-    public boolean isFirstPage();
+    boolean isFirstPage();
 
-    public boolean isLastPage();
+    boolean isLastPage();
 
-    public boolean hasPreviousPage();
+    boolean hasPreviousPage();
 
-    public boolean hasNextPage();
+    boolean hasNextPage();
 
-    public int getCurrentPageIndex();
+    int getCurrentPageIndex();
 
-    public int getPageNo();
+    int getPageNo();
 
-    public int getPageCount();
+    int getPageCount();
 
-    public int getPageSize();
+    int getPageSize();
 
-    public int getCurrentPageRecordCount();
+    int getCurrentPageRecordCount();
 
-    public long getTotalRecordCount();
+    long getTotalRecordCount();
 
-    public long getFirstIndexOfCurrentPage();
+    long getFirstIndexOfCurrentPage();
 
-    public long getLastIndexOfCurrentPage();
+    long getLastIndexOfCurrentPage();
 
-    public long getFirstIndexOfPreviousPage();
+    long getFirstIndexOfPreviousPage();
 
-    public long getFirstIndexOfNextPage();
+    long getFirstIndexOfNextPage();
 
-    public long getFirstIndexOfPage(int pageNo);
+    long getFirstIndexOfPage(int pageNo);
 
-    public long getLastIndexOfPage(int pageNo);
+    long getLastIndexOfPage(int pageNo);
+
 }

@@ -8,7 +8,10 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import java.io.Serializable;
 
 /**
- * @description: 公用插入Mapper, 通过{@link BaseUpdateProvider}提供具体SQL生成
+ * @description: 公用更新Mapper, 通过{@link BaseUpdateProvider}提供具体SQL生成
+ *
+ * <p>当Provider中的method与Mapper中的方法相同时, 可以使用dynamicSQL替代</p>
+ *
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0
@@ -33,14 +36,14 @@ public interface BaseUpdateMapper<T, ID extends Serializable> {
      * 通过实体对象中的属性进行查询, 并更新
      * @param entity    实体
      */
-    @UpdateProvider(type= BaseUpdateProvider.class, method= "updateByEntity")
+    @UpdateProvider(type= BaseUpdateProvider.class, method= "dynamicSQL")
     void updateByEntity(T entity);
 
     /**
      * 通过ID, 更新实体中的部分属性
      * @param entity 实体属性, 其中key=propertyName
      */
-    @UpdateProvider(type = BaseUpdateProvider.class, method = "updateByAttribute")
+    @UpdateProvider(type = BaseUpdateProvider.class, method = "dynamicSQL")
     void updateByAttribute(@Param("id") ID id, @Param("entity") Attribute entity);
 
 }

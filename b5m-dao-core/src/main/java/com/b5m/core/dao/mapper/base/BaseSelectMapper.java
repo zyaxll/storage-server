@@ -8,7 +8,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @description: TODO
+ * @description: 公用查询Mapper, 通过{@link BaseSelectProvider}提供具体SQL生成
+ *
+ * <p>当Provider中的method与Mapper中的方法相同时, 可以使用dynamicSQL替代</p>
+ *
  * Copyright 2011-2015 B5M.COM. All rights reserved
  * @author: Leo.li
  * @version: 1.0
@@ -21,17 +24,17 @@ import java.util.List;
  */
 public interface BaseSelectMapper<T, ID extends Serializable> {
 
-    @SelectProvider(type= BaseSelectProvider.class, method= "exists")
+    @SelectProvider(type= BaseSelectProvider.class, method= "dynamicSQL")
     boolean exists(ID id);
 
-    @SelectProvider(type= BaseSelectProvider.class, method= "existsByEntity")
+    @SelectProvider(type= BaseSelectProvider.class, method= "dynamicSQL")
     boolean existsByEntity(T entity);
 
 
-    @SelectProvider(type= BaseSelectProvider.class, method= "findOne")
+    @SelectProvider(type= BaseSelectProvider.class, method= "dynamicSQL")
     T findOne(ID id);
 
-    @SelectProvider(type= BaseSelectProvider.class, method= "findOneByEntity")
+    @SelectProvider(type= BaseSelectProvider.class, method= "dynamicSQL")
     T findOneByEntity(T entity);
 
 
