@@ -1,4 +1,4 @@
-package com.b5m.core.dao.factory;
+package com.b5m.core.dao.spring;
 
 import com.b5m.core.dao.helper.MapperHelper;
 import com.b5m.core.dao.mapper.Marker;
@@ -13,7 +13,7 @@ import java.util.Properties;
  * @description: 自定义Mapper扫描配置, 并完成Mapper的初始化
  *
  * 配置方式如下:
- * <bean class="com.b5m.core.dao.factory.MapperScannerConfigurer">
+ * <bean class="com.b5m.core.dao.spring.MapperScannerConfigurer">
  *      <property name="basePackage" value="com.b5m.storage.dao"/>
  * </bean>
  * 采用该配置时, 不需要使用Mybatis的扫描注册方式.

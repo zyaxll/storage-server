@@ -42,7 +42,7 @@ import java.util.Properties;
  *       </bean>
  *
  *       注意: 使用该配置时, 会在方法执行时动态加载Bean对象, 在第一次调用方法时会有一定的延迟.
- *       建议采用{@link com.b5m.core.dao.factory.MapperScannerConfigurer}的配置方式, 在项目启动时完成初始化工作.
+ *       建议采用{@link com.b5m.core.dao.spring.MapperScannerConfigurer}的配置方式, 在项目启动时完成初始化工作.
  * </p>
  *
  * Copyright 2011-2015 B5M.COM. All rights reserved

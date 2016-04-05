@@ -1,0 +1,15 @@
+package com.b5m.storage.dao;
+
+import com.b5m.core.dao.mapper.CommonMapper;
+import com.b5m.storage.model.entity.#table#;
+
+/**
+ * @description: #tableComment#-Dao
+ * Copyright 2011-2016 B5M.COM. All rights reserved
+ * @author: #author#
+ * @version: 1.0
+ * @createdate: #date#
+ */
+public interface #table#Mapper extends CommonMapper<#table#, Long> {
+
+}

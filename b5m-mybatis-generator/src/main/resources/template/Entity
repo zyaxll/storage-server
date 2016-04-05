@@ -1,0 +1,23 @@
+package com.b5m.storage.model.entity;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @description: #tableComment#
+ * Copyright 2011-2016 B5M.COM. All rights reserved
+ * @author: #author#
+ * @version: 1.0
+ * @createdate: #date#
+ */
+@Table(name = #table#.TABLE_#utableName#)
+public class #table# implements Serializable {
+
+    public static final String TABLE_#utableName# = "#tableName#";
+    public static final String CLASS_#utable# = "#table#";
+

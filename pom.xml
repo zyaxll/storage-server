@@ -344,6 +344,7 @@
         <module>storage-webapp</module>
         <module>b5m-dao-core</module>
         <module>b5m-service-core</module>
+        <module>b5m-mybatis-generator</module>
     </modules>
 
 

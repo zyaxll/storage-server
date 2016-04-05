@@ -9,6 +9,7 @@ import org.apache.ibatis.session.Configuration;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -35,6 +36,9 @@ public class EntityTable {
     private Set<EntityColumn> entityClassColumns;
     //实体类 => 主键信息
     private Set<EntityColumn> entityClassPKColumns;
+
+    private Map<String, EntityColumn> keyPropertyMap;
+    private Map<String, EntityColumn> keyColumnMap;
 
     //useGenerator包含多列的时候需要用到
     private List<String> keyProperties;
@@ -163,6 +167,22 @@ public class EntityTable {
         } else {
             this.keyColumns.add(keyColumn);
         }
+    }
+
+    public Map<String, EntityColumn> getKeyPropertyMap() {
+        return keyPropertyMap;
+    }
+
+    public void setKeyPropertyMap(Map<String, EntityColumn> keyPropertyMap) {
+        this.keyPropertyMap = keyPropertyMap;
+    }
+
+    public Map<String, EntityColumn> getKeyColumnMap() {
+        return keyColumnMap;
+    }
+
+    public void setKeyColumnMap(Map<String, EntityColumn> keyColumnMap) {
+        this.keyColumnMap = keyColumnMap;
     }
 
     /**

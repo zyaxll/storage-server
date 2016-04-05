@@ -1,0 +1,15 @@
+package com.b5m.storage.service;
+
+import com.b5m.storage.model.entity.#table#;
+import com.b5m.core.service.ICommonService;
+
+/**
+ * @description: #tableComment#-Service
+ * Copyright 2011-2016 B5M.COM. All rights reserved
+ * @author: #author#
+ * @version: 1.0
+ * @createdate: #date#
+ */
+public interface I#table#Service extends ICommonService<#table#, Long> {
+
+}

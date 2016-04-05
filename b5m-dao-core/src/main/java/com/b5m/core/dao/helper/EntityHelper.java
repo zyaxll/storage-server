@@ -106,6 +106,8 @@ public class EntityHelper {
 
         entityTable.setEntityClassColumns(new LinkedHashSet<EntityColumn>());
         entityTable.setEntityClassPKColumns(new LinkedHashSet<EntityColumn>());
+        entityTable.setKeyPropertyMap(new HashMap<String, EntityColumn>());
+        entityTable.setKeyColumnMap(new HashMap<String, EntityColumn>());
 
         //列
         List<Field> fieldList = FieldHelper.getAllField(entityClass, null);
@@ -172,6 +174,8 @@ public class EntityHelper {
         }
 
         entityTable.getEntityClassColumns().add(entityColumn);
+        entityTable.getKeyPropertyMap().put(entityColumn.getProperty(), entityColumn);
+        entityTable.getKeyColumnMap().put(entityColumn.getColumn(), entityColumn);
         if (entityColumn.isId()) {
             entityTable.getEntityClassPKColumns().add(entityColumn);
         }
