@@ -1,7 +1,9 @@
 package com.b5m.generator;
 
 
+import com.b5m.generator.bean.Table;
 import com.b5m.generator.core.BizAdapt;
+import com.b5m.generator.utils.Constant;
 
 /**
  * @description: {TODO}
@@ -14,6 +16,10 @@ public class GenericServiceImpl extends BizAdapt {
 
     private static final String NAME = "ServiceImpl";
 
+    public GenericServiceImpl(Table table) {
+        super(table);
+    }
+
     @Override
     protected String getName() {
         return NAME;
@@ -21,13 +27,18 @@ public class GenericServiceImpl extends BizAdapt {
 
     @Override
     public void setFilePath(String filePath) {
-        super.setFilePath(filePath + "/storage-core");
+        super.setFilePath(filePath + "/" + getProjectName() + "-core");
     }
 
     @Override
     protected void init() {
         setSourceName(getSourcePath() + "template/" + getName());
-        setTargetName("/src/main/java/com/b5m/storage/service/impl/" + getTable().getName() + "Service.java");
+
+        String targetName = Constant.SERVICE_PATH;
+        if (null == targetName || "".equals(targetName.trim())) {
+            targetName = "/src/main/java/com/b5m/" + getProjectName() + "/service/";
+        }
+        setTargetName(targetName + "/impl/" + getTable().getName() + "Service.java");
     }
 
     @Override

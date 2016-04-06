@@ -22,6 +22,7 @@ public abstract class GenericBase {
     protected static final String RP_TABLE_COMMENT = "#tableComment#";
     protected static final String RP_AUTHOR = "#author#";
     protected static final String RP_DATE = "#date#";
+    protected static final String RP_PRO = "#project#";
 
     private String name;
     private String filePath;
@@ -33,30 +34,20 @@ public abstract class GenericBase {
     private Table table;
     private String projectName;
 
-    private Properties properties;
-
-    public GenericBase() {
-        try {
-            this.properties = PropertyUtils.load(this.getClass().getClassLoader(), "config.properties");
-        } catch (IOException e) {
-            throw new RuntimeException("can't load properties config..", e);
-        }
-        this.author = PropertyUtils.getValue("common_author", this.properties);
-        this.projectName = PropertyUtils.getValue("project_name", this.properties);
-        this.filePath = PropertyUtils.getValue("file_path", this.properties);
-    }
-
     public GenericBase(Table table) {
-        this();
-        init();
+        this.author = Constant.AUTHOR;
+        this.projectName = Constant.PROJECT_NAME;
+        this.filePath = Constant.FILE_PATH;
         this.table = table;
+        init();
+        setFilePath(getFilePath());
     }
 
     public GenericBase(String filePath, String author, Table table) {
-        this();
         this.filePath = filePath;
         this.author = author;
         this.table = table;
+        init();
     }
 
     public void generic() throws Exception {
@@ -79,6 +70,7 @@ public abstract class GenericBase {
                 .replaceAll(RP_TABLE, getTable().getName())
                 .replaceAll(RP_TABLE_COMMENT, getTable().getComment())
                 .replaceAll(RP_AUTHOR, getAuthor())
+                .replaceAll(RP_PRO, getProjectName())
                 .replaceAll(RP_DATE, getDate());
     }
 
@@ -154,11 +146,12 @@ public abstract class GenericBase {
         init();
     }
 
-    public Properties getProperties() {
-        return properties;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProperties(Properties properties) {
-        this.properties = properties;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
+
 }

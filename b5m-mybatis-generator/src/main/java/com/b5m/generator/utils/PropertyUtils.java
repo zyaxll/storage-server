@@ -56,4 +56,17 @@ public class PropertyUtils {
         return val.trim();
     }
 
+    public static String getValue(String key, Properties properties, boolean isMust) {
+        if (null == key || "".equals(key)) {
+            return "";
+        }
+        String val = properties.getProperty(key);
+
+        if ((null == val || "".equals(val.trim())) && isMust) {
+            throw new RuntimeException(String.format("property [%s] is not exist", key));
+        }
+
+        return val;
+    }
+
 }

@@ -5,6 +5,7 @@ import com.b5m.generator.bean.Table;
 import com.b5m.generator.core.GenericBase;
 import com.b5m.generator.core.GenericType;
 import com.b5m.generator.utils.ConnUtils;
+import com.b5m.generator.utils.Constant;
 import com.b5m.generator.utils.PropertyUtils;
 
 import java.sql.Connection;
@@ -29,38 +30,25 @@ public class GenericFactory {
         if (null == lstTableName) return;
 
         for (String tableName : lstTableName) {
-            generic(tableName, "b5m_develop");
+            generic(tableName, Constant.TABLE_SCHEMA);
         }
     }
 
     public static void generic(String tableName) {
-        generic(tableName, "b5m_develop");
+        generic(tableName, Constant.TABLE_SCHEMA);
     }
 
     public static void generic(String tableName, String tableSchema) {
-        generic(tableName, tableSchema, "/home/leo/Pro/storage-server");
-    }
-
-    public static void generic(String tableName, String tableSchema, String filePath) {
-        generic(tableName, tableSchema, filePath, "Leo.li");
-    }
-
-    public static void generic(String tableName, String tableSchema, String filePath, String author) {
         try {
-            Properties properties = PropertyUtils.load(GenericFactory.class.getClassLoader(), "config");
-            tableSchema = PropertyUtils.getValue("table_schema", properties);
-            filePath = PropertyUtils.getValue("file_path", properties);
-            author = PropertyUtils.getValue("common_author", properties);
-
             Table table = findTableByName(tableName, tableSchema);
 
-            addGeneric(genericBean(GenericType.ENTITY));
-            addGeneric(genericBean(GenericType.DAO));
-            addGeneric(genericBean(GenericType.SERVICE));
-            addGeneric(genericBean(GenericType.SERVICE_IMPL));
+            addGeneric(genericBean(GenericType.ENTITY, table));
+            addGeneric(genericBean(GenericType.DAO, table));
+            addGeneric(genericBean(GenericType.SERVICE, table));
+            addGeneric(genericBean(GenericType.SERVICE_IMPL, table));
 
             if (null != table) {
-                genericJava(table, filePath, author);
+                genericJava();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,12 +56,9 @@ public class GenericFactory {
 
     }
 
-    private static void genericJava(Table table, String filePath, String author) {
+    private static void genericJava() {
         try {
             for (GenericBase generic : lstGeneric) {
-                generic.setFilePath(filePath);
-                generic.setTable(table);
-                generic.setAuthor(author);
                 generic.generic();
             }
         } catch (Exception e) {
@@ -81,20 +66,20 @@ public class GenericFactory {
         }
     }
 
-    public static GenericBase genericBean(GenericType type) {
+    public static GenericBase genericBean(GenericType type, Table table) {
         GenericBase base;
         switch (type) {
             case ENTITY:
-                base = new GenericEntity();
+                base = new GenericEntity(table);
                 break;
             case DAO:
-                base = new GenericDao();
+                base = new GenericDao(table);
                 break;
             case SERVICE:
-                base = new GenericService();
+                base = new GenericService(table);
                 break;
             case SERVICE_IMPL:
-                base = new GenericServiceImpl();
+                base = new GenericServiceImpl(table);
                 break;
             default:
                 base = null;

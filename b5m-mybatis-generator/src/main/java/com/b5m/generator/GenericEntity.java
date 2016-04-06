@@ -1,6 +1,7 @@
 package com.b5m.generator;
 
 import com.b5m.generator.bean.Column;
+import com.b5m.generator.bean.Table;
 import com.b5m.generator.core.ColumnAdapt;
 import com.b5m.generator.utils.Constant;
 
@@ -18,6 +19,10 @@ public class GenericEntity extends ColumnAdapt {
     private static final String RP_TABLE_N = "#tableName#";
     private static final String RP_TABLE_O = "#utableName#";
 
+    public GenericEntity(Table table) {
+        super(table);
+    }
+
     @Override
     protected String getName() {
         return NAME;
@@ -26,12 +31,17 @@ public class GenericEntity extends ColumnAdapt {
     @Override
     protected void init() {
         setSourceName(getSourcePath() + "template/" + getName());
-        setTargetName("/src/main/java/com/b5m/storage/model/entity/" + getTable().getName() + ".java");
+
+        String targetName = Constant.ENTITY_PATH;
+        if (null == targetName || "".equals(targetName.trim())) {
+            targetName = "/src/main/java/com/b5m/" + getProjectName() + "/model/entity/";
+        }
+        setTargetName(targetName + getTable().getName() + ".java");
     }
 
     @Override
     public void setFilePath(String filePath) {
-        super.setFilePath(filePath + "/storage-api");
+        super.setFilePath(filePath + "/" + getProjectName() + "-api");
     }
 
     @Override

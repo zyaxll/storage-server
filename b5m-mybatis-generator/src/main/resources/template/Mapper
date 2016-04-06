@@ -1,7 +1,7 @@
-package com.b5m.storage.dao;
+package com.b5m.#project#.dao;
 
 import com.b5m.core.dao.mapper.CommonMapper;
-import com.b5m.storage.model.entity.#table#;
+import com.b5m.#project#.model.entity.#table#;
 
 /**
  * @description: #tableComment#-Dao

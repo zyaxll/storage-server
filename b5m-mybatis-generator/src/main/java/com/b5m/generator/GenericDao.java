@@ -1,6 +1,8 @@
 package com.b5m.generator;
 
+import com.b5m.generator.bean.Table;
 import com.b5m.generator.core.BizAdapt;
+import com.b5m.generator.utils.Constant;
 
 /**
  * @description: {TODO}
@@ -13,6 +15,10 @@ public class GenericDao extends BizAdapt {
 
     private static final String NAME = "Mapper";
 
+    public GenericDao(Table table) {
+        super(table);
+    }
+
     @Override
     protected String getName() {
         return NAME;
@@ -20,13 +26,18 @@ public class GenericDao extends BizAdapt {
 
     @Override
     public void setFilePath(String filePath) {
-        super.setFilePath(filePath + "/storage-core");
+        super.setFilePath(filePath + "/" + getProjectName() + "-core");
     }
 
     @Override
     protected void init() {
         setSourceName(getSourcePath() + "template/" + getName());
-        setTargetName("/src/main/java/com/b5m/storage/dao/" + getTable().getName() + getName() + ".java");
+
+        String targetName = Constant.DAO_PATH;
+        if (null == targetName || "".equals(targetName.trim())) {
+            targetName = "/src/main/java/com/b5m/" + getProjectName() + "/dao/";
+        }
+        setTargetName(targetName + getTable().getName() + getName() + ".java");
     }
 
 }

@@ -1,6 +1,7 @@
 package com.b5m.generator.core;
 
 import com.b5m.generator.bean.Column;
+import com.b5m.generator.bean.Table;
 import com.b5m.generator.utils.Constant;
 
 /**
@@ -11,6 +12,10 @@ import com.b5m.generator.utils.Constant;
  * @createdate: ${Date}
  */
 public abstract class ColumnAdapt extends GenericBase {
+
+    public ColumnAdapt(Table table) {
+        super(table);
+    }
 
     protected void getComment(StringBuilder target, String comment) {
         target.append(Constant.FILE_SPACE)

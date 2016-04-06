@@ -1,9 +1,9 @@
-package com.b5m.storage.service.impl;
+package com.b5m.#project#.service.impl;
 
 import com.b5m.core.service.impl.CommonService;
-import com.b5m.storage.dao.#table#Mapper;
-import com.b5m.storage.model.entity.#table#;
-import com.b5m.storage.service.I#table#Service;
+import com.b5m.#project#.dao.#table#Mapper;
+import com.b5m.#project#.model.entity.#table#;
+import com.b5m.#project#.service.I#table#Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

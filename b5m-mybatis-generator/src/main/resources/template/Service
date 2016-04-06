@@ -1,6 +1,6 @@
-package com.b5m.storage.service;
+package com.b5m.#project#.service;
 
-import com.b5m.storage.model.entity.#table#;
+import com.b5m.#project#.model.entity.#table#;
 import com.b5m.core.service.ICommonService;
 
 /**
