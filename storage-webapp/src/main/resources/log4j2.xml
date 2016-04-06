@@ -12,50 +12,54 @@
         </Console>
         <!-- 系统全日志 -->
         <RollingRandomAccessFile name="Stdout"
-                                 fileName="${LOG_HOME}/stdout.file_json" filePattern="${LOG_HOME}/stdout.file_json.%d{yyyy-MM-dd-HH}.log">
+                                 fileName="${LOG_HOME}/stdout.file_json"
+                                 filePattern="${LOG_HOME}/stdout.file_json.%d{yyyy-MM-dd-HH}">
+
             <PatternLayout
-                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread][%file:%line] - %msg%n" />
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} [rip=%X{rip}] %-5p [%thread] [%file:%line] - %msg%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>
         </RollingRandomAccessFile>
         <!-- 系统错误日志 -->
         <RollingRandomAccessFile name="Warn"
-                                 fileName="${LOG_HOME}/warn.file_json" filePattern="${LOG_HOME}/warn.file_json.%d{yyyy-MM-dd-HH}.log">
+                                 fileName="${LOG_HOME}/warn.file_json"
+                                 filePattern="${LOG_HOME}/warn.file_json.%d{yyyy-MM-dd-HH}">
             <PatternLayout
-                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread][%file:%line] - %msg%n" />
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%file:%line] - %msg%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>
             <Filters>
-                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
         </RollingRandomAccessFile>
         <!-- 系统性能日志 -->
         <!--
-        <RollingRandomAccessFile name="Warn"
-                                 fileName="${LOG_HOME}/profilelog.file_json" filePattern="${LOG_HOME}/profilelog.file_json.%d{yyyy-MM-dd-HH}.log">
+        <RollingRandomAccessFile name="Profile"
+                                 fileName="${LOG_HOME}/profilelog.file_json"
+                                 filePattern="${LOG_HOME}/profilelog.file_json.%d{yyyy-MM-dd-HH}">
+            &lt;!&ndash;<JSONLayout/>&ndash;&gt;
             <PatternLayout
-                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread][%file:%line] - %msg%n" />
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%file:%line] - %msg%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
             </Policies>
-            <Filters>
-                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
-            </Filters>
         </RollingRandomAccessFile>
         -->
     </appenders>
     <loggers>
         <!-- 3rdparty Loggers -->
-        <logger name="org.springframework" level="info"/>
-        <logger name="org.jboss.netty" level="warn"/>
-        <logger name="org.apache.http" level="warn"/>
-        <logger name="com.mchange.v2" level="warn"/>
+        <logger name="org.springframework" level="DEBUG"/>
+        <logger name="com.ibatis" level="DEBUG"/>
+        <logger name="java.sql" level="DEBUG"/>
+
+        <!--<logger name="ProfileCollector" level="INFO" appender-ref="Profile"/>-->
+
         <!-- Root Logger -->
-        <root level="DEBUG">
+        <root level="${log4j.level}">
             <appender-ref ref="Console" />
-            <appender-ref ref="Stdout" />
+            <appender-ref ref="Stdout"/>
             <appender-ref ref="Warn" />
         </root>
     </loggers>

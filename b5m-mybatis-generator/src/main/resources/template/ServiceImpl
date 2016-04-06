@@ -1,0 +1,28 @@
+package com.b5m.#project#.service.impl;
+
+import com.b5m.core.service.impl.CommonService;
+import com.b5m.#project#.dao.#table#Mapper;
+import com.b5m.#project#.model.entity.#table#;
+import com.b5m.#project#.service.I#table#Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * @description: #tableComment#-Service
+ * Copyright 2011-2016 B5M.COM. All rights reserved
+ * @author: #author#
+ * @version: 1.0
+ * @createdate: #date#
+ */
+@Service
+public class #table#Service extends CommonService<#table#, Long> implements I#table#Service {
+
+    @Autowired(required = false)
+    private #table#Mapper #ltable#Mapper;
+
+    @Autowired(required = false)
+    public void setMapper(#table#Mapper mapper) {
+        super.setMapper(mapper);
+    }
+
+}

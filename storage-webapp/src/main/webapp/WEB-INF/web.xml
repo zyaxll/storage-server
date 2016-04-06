@@ -22,6 +22,28 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--
+    <filter>
+        <filter-name>requestIdentityFilter</filter-name>
+        <filter-class>com.b5m.log.ri.RequestIdentityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>requestIdentityFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    -->
+
+    <!--
+    <filter>
+        <filter-name>ProfileCollecter</filter-name>
+        <filter-class>com.b5m.profile.ProfileFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ProfileCollecter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    -->
+
     <context-param>
         <param-name>webAppRootKey</param-name>
         <param-value>storage.root</param-value>

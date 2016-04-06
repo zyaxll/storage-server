@@ -1,0 +1,11 @@
+target
+.project
+.settings
+.git
+.classpath
+.tmp_*
+#.gitignore
+.idea/
+*.iml
+Thumbs.db
+logs
