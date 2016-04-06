@@ -1,4 +1,4 @@
-package com.b5m.core.dao.factory;
+package com.b5m.core.dao.spring;
 
 import com.b5m.core.dao.helper.MapperHelper;
 

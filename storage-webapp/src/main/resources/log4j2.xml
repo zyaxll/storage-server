@@ -57,7 +57,7 @@
         <!--<logger name="ProfileCollector" level="INFO" appender-ref="Profile"/>-->
 
         <!-- Root Logger -->
-        <root level="DEBUG">
+        <root level="${log4j.level}">
             <appender-ref ref="Console" />
             <appender-ref ref="Stdout"/>
             <appender-ref ref="Warn" />

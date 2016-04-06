@@ -32,13 +32,4 @@ public class PublicCodeService extends CommonService<PublicCode, Long> implement
         super.setMapper(mapper);
     }
 
-    @Override
-    public PublicCode selectByKey(Long id) {
-        return publicCodeMapper.findOne(id);
-    }
-
-    @Override
-    public List<PublicCode> selectAll() {
-        return publicCodeMapper.findAll();
-    }
 }

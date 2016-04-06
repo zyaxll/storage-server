@@ -69,7 +69,7 @@
         </property>
     </bean>
 
-    <bean class="com.b5m.core.dao.factory.MapperScannerConfigurer">
+    <bean class="com.b5m.core.dao.spring.MapperScannerConfigurer">
         <property name="basePackage" value="com.b5m.storage.dao"/>
     </bean>
 

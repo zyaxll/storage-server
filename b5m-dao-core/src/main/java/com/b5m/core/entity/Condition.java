@@ -40,6 +40,8 @@ public class Condition implements Serializable {
      */
     private Mode mode;
 
+    private Class<?> clazz;
+
     private List<Condition> cnds;
 
     public Condition(String key, Object value) {
@@ -151,6 +153,14 @@ public class Condition implements Serializable {
 
     public void setMode(Mode mode) {
         this.mode = mode;
+    }
+
+    public Class<?> getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Class<?> clazz) {
+        this.clazz = clazz;
     }
 
     public List<Condition> getCnds() {
