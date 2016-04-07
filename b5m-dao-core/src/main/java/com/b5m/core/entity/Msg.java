@@ -1,7 +1,12 @@
 package com.b5m.core.entity;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -205,6 +210,19 @@ public class Msg implements Serializable {
 
     public static Msg failed(String msg, Map<String, Object> data){
         return msg(false, msg).data(data);
+    }
+
+    public static Msg failed(Errors error){
+        Msg msg = Msg.failed(MsgCode.CLIENT_PARAMETER_ERROR);
+        if (error.hasErrors()) {
+            List<ObjectError> errors = error.getAllErrors();
+            List<String> el = new ArrayList<>(errors.size());
+            for (ObjectError e : errors) {
+                el.add(e.getDefaultMessage());
+            }
+            msg.info("error", el);
+        }
+        return msg;
     }
 
     public static boolean isOk(Msg msg){
