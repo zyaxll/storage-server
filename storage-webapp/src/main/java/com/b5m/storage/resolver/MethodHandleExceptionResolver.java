@@ -1,6 +1,7 @@
 package com.b5m.storage.resolver;
 
 import com.b5m.core.entity.Msg;
+import com.b5m.core.entity.MsgCode;
 import com.b5m.storage.exception.StorageException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,9 +63,9 @@ public class MethodHandleExceptionResolver extends ExceptionHandlerExceptionReso
         if (exception instanceof Errors) { //数据校验失败
             msg = Msg.failed((Errors) exception);
         } else if (exception instanceof StorageException) { //自定义异常
-            msg = Msg.failed(Msg.MsgCode.SERVER_HANDLE_ERROR);
+            msg = Msg.failed(MsgCode.SERVER_HANDLE_ERROR);
         } else { //其他异常
-            msg = Msg.failed(Msg.MsgCode.SERVER_INTERNAL_ERROR);
+            msg = Msg.failed(MsgCode.SERVER_INTERNAL_ERROR);
         }
 
         handleResponseBody(msg, handlerMethod, response);
