@@ -3,14 +3,18 @@ package com.b5m.core.concurrent;
 import com.b5m.utils.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -26,11 +30,27 @@ import java.util.concurrent.TimeUnit;
  * -----------------------------------------------------------------------------------
  * 16-4-8       Leo.li          1.0             TODO
  */
+@Component
 public final class TaskExecutor {
 
     private final static Logger LOGGER = LogManager.getLogger(TaskExecutor.class);
 
-    private static final ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(20);
+    /**
+     * 从config.properties中读取task.pool.size
+     */
+    private static int POOL_SIZE;
+
+    @Value("#{config['task.pool.size']}")
+    private int localPoolSize;
+
+    private static final int DEFAULT_POOL_SIZE = 50;
+
+    /**
+     * 默认10秒超时
+     */
+    private static final int DEFAULT_TIMEOUT = 10000;
+
+    private static final ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(0 == POOL_SIZE ? DEFAULT_POOL_SIZE : POOL_SIZE);
 
     public static void run(List<RunnableTask> tasks) {
         if (CollectionUtils.isEmpty(tasks)) {
@@ -92,16 +112,32 @@ public final class TaskExecutor {
         }
     }
 
-    public static <T> List<T> call(List<CallableTask<T>> tasks) {
+    public static <T> List<T> call(List<Callable<T>> tasks) {
+       return call(tasks, DEFAULT_TIMEOUT);
+    }
+
+    public static <T> List<T> call(List<Callable<T>> tasks, int timeout) {
+        return call(tasks, timeout, true);
+    }
+
+
+    public static <T> List<T> call(List<Callable<T>> tasks, boolean isSkipEmpty) {
+        return call(tasks, DEFAULT_TIMEOUT, isSkipEmpty);
+    }
+
+    public static <T> List<T> call(List<Callable<T>> tasks, int timeout, boolean isSkipEmpty) {
         if (CollectionUtils.isEmpty(tasks)) {
             return null;
         }
 
         List<T> result = new ArrayList<>(tasks.size());
         try {
-            List<Future<T>> futures = threadPool.invokeAll(tasks);
+            List<Future<T>> futures = threadPool.invokeAll(tasks, timeout, TimeUnit.MILLISECONDS);
             for (Future<T> future : futures) {
-                result.add(future.get());
+                T obj = future.get();
+                if (isSkipEmpty && null != obj) {
+                    result.add(obj);
+                }
             }
         } catch (InterruptedException | ExecutionException e) {
             LOGGER.error("CallableTask error", e);
@@ -111,7 +147,7 @@ public final class TaskExecutor {
         return result;
     }
 
-    public static <T> List<T> call(CallableTask<T>... tasks) {
+    public static <T> List<T> call(Callable<T>... tasks) {
         return call(Arrays.asList(tasks));
     }
 
@@ -129,6 +165,16 @@ public final class TaskExecutor {
         }
 
         return null;
+    }
+
+    @PostConstruct
+    private void init() {
+        POOL_SIZE = this.localPoolSize;
+    }
+
+    @PreDestroy
+    private void destroy() {
+        threadPool.shutdown();
     }
 
 }

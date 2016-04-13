@@ -1,5 +1,6 @@
 package com.b5m.storage.service.impl;
 
+import com.b5m.core.concurrent.TaskExecutor;
 import com.b5m.core.service.impl.CommonService;
 import com.b5m.storage.dao.PublicCodeMapper;
 import com.b5m.storage.model.entity.PublicCode;
@@ -7,7 +8,9 @@ import com.b5m.storage.service.IPublicCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * @description: TODO
@@ -32,4 +35,17 @@ public class PublicCodeService extends CommonService<PublicCode, Long> implement
         super.setMapper(mapper);
     }
 
+    @Override
+    public List<PublicCode> findAll(Iterable<Long> iterable) {
+        List<Callable<PublicCode>> list = new ArrayList<>();
+        for (final Long id : iterable) {
+            list.add(new Callable<PublicCode>() {
+                @Override
+                public PublicCode call() throws Exception {
+                    return publicCodeMapper.findOne(id);
+                }
+            });
+        }
+        return TaskExecutor.call(list);
+    }
 }
