@@ -14,7 +14,7 @@
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookeeper.address}"/>
     <dubbo:monitor protocol="registry"/>
 
-    <dubbo:protocol port="${dubbo.server.port}" accepts="1000" threads="400" threadpool="fixed"/>
+    <dubbo:protocol name="ridubbo" port="${dubbo.server.port}" accepts="1000" threads="400" threadpool="fixed"/>
 
     <!--<dubbo:reference id="dubboEmailService" interface="com.b5m.sms.service.EmailService" check="false" />-->
 

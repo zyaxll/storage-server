@@ -19,7 +19,7 @@
 
         <property name="initialSize" value="1"/>
         <property name="maxActive" value="${jdbc.maxActive}"/>
-        <property name="minIdle" value="1"/>
+        <property name="minIdle" value="10"/>
 
         <!-- 配置获取连接等待超时的时间 -->
         <property name="maxWait" value="120000"/>
@@ -69,6 +69,10 @@
         </property>
     </bean>
 
+    <bean class="com.b5m.core.dao.spring.MapperScannerConfigurer">
+        <property name="basePackage" value="com.b5m.storage.dao"/>
+    </bean>
+
     <aop:config>
         <aop:pointcut id="transactionPointcut" expression="execution(* com.b5m.storage.service.*.*.*(..))"/>
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice"/>
@@ -103,8 +107,6 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.b5m.storage.dao"/>
-    </bean>
+
 
 </beans>
