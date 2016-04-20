@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,11 +44,20 @@ public class PublicCodeController {
 //        PublicCode publicCode = publicCodeService.findOneByCondition(conditions);
 //        List<PublicCode> list = new ArrayList<>();
 //        list.add(publicCode);
-        PublicCode publicCode = new PublicCode();
-        publicCode.setStatus(1);
-        PageImpl<PublicCode> page = (PageImpl<PublicCode>) publicCodeService.findPage(publicCode, 5, 6);
+//        PublicCode publicCode = new PublicCode();
+//        publicCode.setStatus(1);
+//        PageImpl<PublicCode> page = (PageImpl<PublicCode>) publicCodeService.findPage(publicCode, 5, 6);
 
-        return page.getContent();
+        List<Long> list = new ArrayList<>();
+        list.add(201L);
+        list.add(202L);
+        list.add(203L);
+        list.add(204L);
+        list.add(205L);
+        list.add(206L);
+        list.add(200L);
+
+        return publicCodeService.findAll(list);
     }
 
 }
