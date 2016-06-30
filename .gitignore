@@ -9,3 +9,4 @@ target
 *.iml
 Thumbs.db
 logs
+/bin/
